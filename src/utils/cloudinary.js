@@ -23,6 +23,20 @@ const uploadOnCloudinary = async (localFilePath) => {
   }
 };
 
+const deleteFromCloudinary = async (localFilePath) => {
+  try {
+    if (!localFilePath) return null;
+
+    // Delete the file from Cloudinary
+    const response = await cloudinary.uploader.destroy(localFilePath);
+
+    return response.result === "ok" ? response : null;
+  } catch (error) {
+    console.error("Error deleting file from Cloudinary:", error);
+    return null;
+  }
+};
+
 // cloudinary.uploader.upload(
 //   "https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg",
 //   { public_id: "olympic_flag" },
@@ -31,4 +45,4 @@ const uploadOnCloudinary = async (localFilePath) => {
 //   }
 // );
 
-export { uploadOnCloudinary };
+export { uploadOnCloudinary, deleteFromCloudinary };
